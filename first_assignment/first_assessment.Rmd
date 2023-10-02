@@ -1,0 +1,37 @@
+---
+title: 'Assignment #1 (formative)'
+author: "Edimilson Torres de Oliveira Neto"
+date: "2023-10-02"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Exercise 1
+
+
+My forked version of the assignment template repository can be found at https://github.com/editor210/472_assignment_template
+
+
+## Exercise 2
+
+For the second exercise I have chosen to work with the ChickWeight Dataset.
+This Dataset presents 578 rows and 4 variables (Weight, time, Chick, Diet).
+
+The Weight is a numeric vector representing the weight of chickens in grams
+
+```{r chicks, echo= FALSE}
+summary(ChickWeight)
+```
+
+## Including Plots
+
+You can also embed plots, for example:
+
+```{r pressure, echo=FALSE}
+plot(pressure)
+```
+
+Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.
