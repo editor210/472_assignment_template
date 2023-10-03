@@ -20,10 +20,30 @@ My forked version of the assignment template repository can be found at https://
 For the second exercise I have chosen to work with the ChickWeight Dataset.
 This Dataset presents 578 rows and 4 variables (Weight, time, Chick, Diet).
 
-The Weight is a numeric vector representing the weight of chickens in grams
+This dataset can be considered tidy since it fulfills the three rules for tidy data, that means:
+1. Each Variable has its own column
+2. Each observation has its own row
+3. Each Value has its own cell
+
+Looking at the table below it is possible to see that:
+1. the variables "Weight", "Time", "Chick" and "Diet" are all contained in different columns
+2. Each of the rows represent a unique weight given the chick, time, and diet
+3. each value is separated in its own cell
 
 ```{r chicks, echo= FALSE}
-summary(ChickWeight)
+head(ChickWeight)
+```
+
+One alternative to untidy the table would be to pivot the time variable into columns, maintaining the weight of the Chick as value.
+
+This way the table breaks the first rule of the tidy data, as it is possible to see on the table below
+
+```{r chicks, echo= FALSE}
+library(tidyverse)
+data <- ChickWeight
+
+untidy_data <- pivot_wider(data, names_from = Time, values_from = weight)
+head(untidy_data)
 ```
 
 ## Including Plots
