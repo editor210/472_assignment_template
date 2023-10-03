@@ -6,7 +6,9 @@ output: html_document
 ---
 
 ```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE)
+knitr::opts_chunk$set(echo = FALSE)
+#importing the tidyverse library
+library(tidyverse)
 ```
 
 ## Exercise 1
@@ -25,33 +27,68 @@ This dataset can be considered tidy since it fulfills the three rules for tidy d
 2. Each observation has its own row
 3. Each Value has its own cell
 
-Looking at the table below it is possible to see that:
+The table below shows the first six rows of the ChickWeight dataset. Looking at this table it is possible to see that:
 1. the variables "Weight", "Time", "Chick" and "Diet" are all contained in different columns
 2. Each of the rows represent a unique weight given the chick, time, and diet
 3. each value is separated in its own cell
 
 ```{r chicks, echo= FALSE}
+#Checking the first six rows of the table
 head(ChickWeight)
 ```
 
-One alternative to untidy the table would be to pivot the time variable into columns, maintaining the weight of the Chick as value.
+One alternative to untidy the table would be to pivot the time variable into columns, maintaining the weight of the Chick as value, as it is shown in the next table.
 
-This way the table breaks the first rule of the tidy data, as it is possible to see on the table below
-
-```{r chicks, echo= FALSE}
-library(tidyverse)
+```{r chicks_untidy, echo= FALSE}
+#linking the dataset to a variable
 data <- ChickWeight
 
+#untidying the data by making it wider, linking the columns to the Times variable. The Values correpond to the weight values.
 untidy_data <- pivot_wider(data, names_from = Time, values_from = weight)
 head(untidy_data)
 ```
 
-## Including Plots
 
-You can also embed plots, for example:
+To get this new table it was necessary to transform the original dataset into a tibble and use pivot_wider to transform the time values into columns.
 
-```{r pressure, echo=FALSE}
-plot(pressure)
+Now the observations on the table show the weight of the Chick on a specific Time, but it is not clear what the observation is without prior explanation.
+
+In conclusion, this new table breaks the second rule of the tidy table because the "Time" and "Weight" variables are not allocated in separate columns
+
+
+## Exercise 3
+
+
+Choose a different built-in dataset within R and load it into memory.
+
+Your task is to transform this data frame and demonstrate the use of at least the following three components:
+
+A piping operator: either %>% or |>
+
+A call to the group_by() and summarise() functions
+
+A transformation of a numeric variable after having called summarise()
+
+
+```{r exercise_3, echo=TRUE}
+#Importing the data
+db <- iris
+
+#checking the format of the data
+head(db)
+
+#Using pipe to get the maximum value of the Sepal.Length variable
+db %>% select(Sepal.Length) %>% max()
+
+#grouping the data by species and getting the average value of all variables
+db %>% group_by(Species) %>% summarise("Mean Petal Length" = mean(Petal.Length), "Mean Sepal Length" = mean(Sepal.Length), "Mean Sepal Width" = mean(Sepal.Width))
+
+#After checking the sumarised values, it is necessary to change a numerical variable of the table
+
 ```
+## Appendix: All code in this assignment
 
-Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.
+```{r ref.label=knitr::all_labels(), echo=TRUE, eval=FALSE} 
+# this chunk generates the complete code appendix. 
+# eval=FALSE tells R not to run (``evaluate'') the code here (it was already run before).
+```
