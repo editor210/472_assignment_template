@@ -58,17 +58,8 @@ In conclusion, this new table breaks the second rule of the tidy table because t
 
 ## Exercise 3
 
-
+The dataset that has been chosen for this exercise is the "Edgar Anderson's Iris Data". This data set gives the measurements in centimeters of sepal length and width and petal length and width for 50 flowers of 3 species.
 Choose a different built-in dataset within R and load it into memory.
-
-Your task is to transform this data frame and demonstrate the use of at least the following three components:
-
-A piping operator: either %>% or |>
-
-A call to the group_by() and summarise() functions
-
-A transformation of a numeric variable after having called summarise()
-
 
 ```{r exercise_3, echo=TRUE}
 #Importing the data
@@ -80,17 +71,26 @@ head(db)
 #Using pipe to get the maximum value of the Sepal.Length variable
 db %>% select(Sepal.Length) %>% max()
 
-#grouping the data by species and getting the average value of all variables
-db %>% group_by(Species) %>% summarise(Mean_Petal.Length = mean(Petal.Length), Mean_Petal.Width = mean(Petal.Width), Mean_Sepal.Length = mean(Sepal.Length), Mean_Sepal.Width = mean(Sepal.Width))
+#grouping the data by species and getting the average value of all variables, by calling the group_by() and summarise() functions
+summarized_data <- db %>% group_by(Species) %>% summarise(Mean_Petal.Length = mean(Petal.Length), Mean_Petal.Width = mean(Petal.Width), Mean_Sepal.Length = mean(Sepal.Length), Mean_Sepal.Width = mean(Sepal.Width))
+print(summarized_data)
 
-#Transforming the numeric variable after checking the summarizes values by calculating the mean area of sepals and petals by species.
-db %>% group_by(Species) %>%
-  summarise(Mean_Petal.Length = mean(Petal.Length), Mean_Petal.Width = mean(Petal.Width), Mean_Sepal.Length = mean(Sepal.Length), Mean_Sepal.Width = mean(Sepal.Width)) %>% 
+#Transforming the numeric variable after having called the summarize functions by pipchecking the summarizes values by calculating the mean area of sepals and petals by species.
+transformed_data <- summarized_data %>% 
   group_by(Species) %>%
-  summarise ("Mean Petal Area" = Mean_Petal.Width * Mean_Petal.Length, "Mean Sepal Area" = Mean_Sepal.Width * Mean_Sepal.Length)
+  summarise ("Mean Petal Area (cm²)" = Mean_Petal.Width * Mean_Petal.Length, "Mean Sepal Area(cm²)" = Mean_Sepal.Width * Mean_Sepal.Length)
 
+#Checking the final format of the data
+head(transformed_data)
 
 ```
+
+Finally, discuss some aspect of the transformed data that is informative and that would not have been evident from the original format of the data.
+
+After having made the above mentioned transformations in the dataset it is possible to see that the setosa species presents Petals that are more than 15 times larger than the ones from the setosa flowers. However, when you check the Sepal area, the setosa actually has, on average, a bigger Sepal than the versicolor species.
+
+The virginica species is also clearly the biggest flower measured in this dataset.
+
 ## Appendix: All code in this assignment
 
 ```{r ref.label=knitr::all_labels(), echo=TRUE, eval=FALSE} 

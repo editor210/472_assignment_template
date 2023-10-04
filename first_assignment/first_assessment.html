@@ -407,14 +407,11 @@ separate columns</p>
 </div>
 <div id="exercise-3" class="section level2">
 <h2>Exercise 3</h2>
-<p>Choose a different built-in dataset within R and load it into
-memory.</p>
-<p>Your task is to transform this data frame and demonstrate the use of
-at least the following three components:</p>
-<p>A piping operator: either %&gt;% or |&gt;</p>
-<p>A call to the group_by() and summarise() functions</p>
-<p>A transformation of a numeric variable after having called
-summarise()</p>
+<p>The dataset that has been chosen for this exercise is the “Edgar
+Anderson’s Iris Data”. This data set gives the measurements in
+centimeters of sepal length and width and petal length and width for 50
+flowers of 3 species. Choose a different built-in dataset within R and
+load it into memory.</p>
 <pre class="r"><code>#Importing the data
 db &lt;- iris
 
@@ -430,25 +427,38 @@ head(db)</code></pre>
 <pre class="r"><code>#Using pipe to get the maximum value of the Sepal.Length variable
 db %&gt;% select(Sepal.Length) %&gt;% max()</code></pre>
 <pre><code>## [1] 7.9</code></pre>
-<pre class="r"><code>#grouping the data by species and getting the average value of all variables
-db %&gt;% group_by(Species) %&gt;% summarise(Mean_Petal.Length = mean(Petal.Length), Mean_Petal.Width = mean(Petal.Width), Mean_Sepal.Length = mean(Sepal.Length), Mean_Sepal.Width = mean(Sepal.Width))</code></pre>
+<pre class="r"><code>#grouping the data by species and getting the average value of all variables, by calling the group_by() and summarise() functions
+summarized_data &lt;- db %&gt;% group_by(Species) %&gt;% summarise(Mean_Petal.Length = mean(Petal.Length), Mean_Petal.Width = mean(Petal.Width), Mean_Sepal.Length = mean(Sepal.Length), Mean_Sepal.Width = mean(Sepal.Width))
+print(summarized_data)</code></pre>
 <pre><code>## # A tibble: 3 × 5
 ##   Species  Mean_Petal.Length Mean_Petal.Width Mean_Sepal.Length Mean_Sepal.Width
 ##   &lt;fct&gt;                &lt;dbl&gt;            &lt;dbl&gt;             &lt;dbl&gt;            &lt;dbl&gt;
 ## 1 setosa                1.46            0.246              5.01             3.43
 ## 2 versico…              4.26            1.33               5.94             2.77
 ## 3 virgini…              5.55            2.03               6.59             2.97</code></pre>
-<pre class="r"><code>#Transforming the numeric variable after checking the summarizes values by calculating the mean area of sepals and petals by species.
-db %&gt;% group_by(Species) %&gt;%
-  summarise(Mean_Petal.Length = mean(Petal.Length), Mean_Petal.Width = mean(Petal.Width), Mean_Sepal.Length = mean(Sepal.Length), Mean_Sepal.Width = mean(Sepal.Width)) %&gt;% 
+<pre class="r"><code>#Transforming the numeric variable after having called the summarize functions by pipchecking the summarizes values by calculating the mean area of sepals and petals by species.
+transformed_data &lt;- summarized_data %&gt;% 
   group_by(Species) %&gt;%
-  summarise (&quot;Mean Petal Area&quot; = Mean_Petal.Width * Mean_Petal.Length, &quot;Mean Sepal Area&quot; = Mean_Sepal.Width * Mean_Sepal.Length)</code></pre>
+  summarise (&quot;Mean Petal Area (cm²)&quot; = Mean_Petal.Width * Mean_Petal.Length, &quot;Mean Sepal Area(cm²)&quot; = Mean_Sepal.Width * Mean_Sepal.Length)
+
+#Checking the final format of the data
+head(transformed_data)</code></pre>
 <pre><code>## # A tibble: 3 × 3
-##   Species    `Mean Petal Area` `Mean Sepal Area`
-##   &lt;fct&gt;                  &lt;dbl&gt;             &lt;dbl&gt;
-## 1 setosa                 0.360              17.2
-## 2 versicolor             5.65               16.4
-## 3 virginica             11.2                19.6</code></pre>
+##   Species    `Mean Petal Area (cm²)` `Mean Sepal Area(cm²)`
+##   &lt;fct&gt;                        &lt;dbl&gt;                  &lt;dbl&gt;
+## 1 setosa                       0.360                   17.2
+## 2 versicolor                   5.65                    16.4
+## 3 virginica                   11.2                     19.6</code></pre>
+<p>Finally, discuss some aspect of the transformed data that is
+informative and that would not have been evident from the original
+format of the data.</p>
+<p>After having made the above mentioned transformations in the dataset
+it is possible to see that the setosa species presents Petals that are
+more than 15 times larger than the ones from the setosa flowers.
+However, when you check the Sepal area, the setosa actually has, on
+average, a bigger Sepal than the versicolor species.</p>
+<p>The virginica species is also clearly the biggest flower measured in
+this dataset.</p>
 </div>
 <div id="appendix-all-code-in-this-assignment" class="section level2">
 <h2>Appendix: All code in this assignment</h2>
@@ -472,15 +482,17 @@ head(db)
 #Using pipe to get the maximum value of the Sepal.Length variable
 db %&gt;% select(Sepal.Length) %&gt;% max()
 
-#grouping the data by species and getting the average value of all variables
-db %&gt;% group_by(Species) %&gt;% summarise(Mean_Petal.Length = mean(Petal.Length), Mean_Petal.Width = mean(Petal.Width), Mean_Sepal.Length = mean(Sepal.Length), Mean_Sepal.Width = mean(Sepal.Width))
+#grouping the data by species and getting the average value of all variables, by calling the group_by() and summarise() functions
+summarized_data &lt;- db %&gt;% group_by(Species) %&gt;% summarise(Mean_Petal.Length = mean(Petal.Length), Mean_Petal.Width = mean(Petal.Width), Mean_Sepal.Length = mean(Sepal.Length), Mean_Sepal.Width = mean(Sepal.Width))
+print(summarized_data)
 
-#Transforming the numeric variable after checking the summarizes values by calculating the mean area of sepals and petals by species.
-db %&gt;% group_by(Species) %&gt;%
-  summarise(Mean_Petal.Length = mean(Petal.Length), Mean_Petal.Width = mean(Petal.Width), Mean_Sepal.Length = mean(Sepal.Length), Mean_Sepal.Width = mean(Sepal.Width)) %&gt;% 
+#Transforming the numeric variable after having called the summarize functions by pipchecking the summarizes values by calculating the mean area of sepals and petals by species.
+transformed_data &lt;- summarized_data %&gt;% 
   group_by(Species) %&gt;%
-  summarise (&quot;Mean Petal Area&quot; = Mean_Petal.Width * Mean_Petal.Length, &quot;Mean Sepal Area&quot; = Mean_Sepal.Width * Mean_Sepal.Length)
+  summarise (&quot;Mean Petal Area (cm²)&quot; = Mean_Petal.Width * Mean_Petal.Length, &quot;Mean Sepal Area(cm²)&quot; = Mean_Sepal.Width * Mean_Sepal.Length)
 
+#Checking the final format of the data
+head(transformed_data)
 
 # this chunk generates the complete code appendix. 
 # eval=FALSE tells R not to run (``evaluate&#39;&#39;) the code here (it was already run before).</code></pre>
