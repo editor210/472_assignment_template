@@ -41,10 +41,10 @@ One alternative to untidy the table would be to pivot the time variable into col
 
 ```{r chicks_untidy, echo= FALSE}
 #linking the dataset to a variable
-data <- ChickWeight
+db <- ChickWeight
 
 #untidying the data by making it wider, linking the columns to the Times variable. The Values correpond to the weight values.
-untidy_data <- pivot_wider(data, names_from = Time, values_from = weight)
+untidy_data <- pivot_wider(db, names_from = Time, values_from = weight)
 head(untidy_data)
 ```
 
@@ -81,9 +81,14 @@ head(db)
 db %>% select(Sepal.Length) %>% max()
 
 #grouping the data by species and getting the average value of all variables
-db %>% group_by(Species) %>% summarise("Mean Petal Length" = mean(Petal.Length), "Mean Sepal Length" = mean(Sepal.Length), "Mean Sepal Width" = mean(Sepal.Width))
+db %>% group_by(Species) %>% summarise(Mean_Petal.Length = mean(Petal.Length), Mean_Petal.Width = mean(Petal.Width), Mean_Sepal.Length = mean(Sepal.Length), Mean_Sepal.Width = mean(Sepal.Width))
 
-#After checking the sumarised values, it is necessary to change a numerical variable of the table
+#Transforming the numeric variable after checking the summarizes values by calculating the mean area of sepals and petals by species.
+db %>% group_by(Species) %>%
+  summarise(Mean_Petal.Length = mean(Petal.Length), Mean_Petal.Width = mean(Petal.Width), Mean_Sepal.Length = mean(Sepal.Length), Mean_Sepal.Width = mean(Sepal.Width)) %>% 
+  group_by(Species) %>%
+  summarise ("Mean Petal Area" = Mean_Petal.Width * Mean_Petal.Length, "Mean Sepal Area" = Mean_Sepal.Width * Mean_Sepal.Length)
+
 
 ```
 ## Appendix: All code in this assignment

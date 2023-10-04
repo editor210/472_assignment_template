@@ -9,9 +9,8 @@
 <meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
 
 
-<meta name="author" content="Edimilson Torres de Oliveira Neto" />
+<meta name="author" content="Dr Thomas Robinson and Dr Dan de Kadt" />
 
-<meta name="date" content="2023-10-02" />
 
 <title>Assignment #1 (formative)</title>
 
@@ -351,59 +350,82 @@ display: none;
 
 
 <h1 class="title toc-ignore">Assignment #1 (formative)</h1>
-<h4 class="author">Edimilson Torres de Oliveira Neto</h4>
-<h4 class="date">2023-10-02</h4>
+<h4 class="author">Dr Thomas Robinson and Dr Dan de Kadt</h4>
+<h4 class="date">AT 2023</h4>
 
 </div>
 
 
+<div id="submission-information" class="section level2">
+<h2>Submission information</h2>
+<p>This assignment is due <strong>Thursday 12 October 2023 at
+4pm</strong>:</p>
+<ul>
+<li>Please submit this assignment via the submission portal on
+Moodle</li>
+<li>You must submit your assignment as a <em>knitted, .html</em> file –
+.Rmd, .pdfs, or other file types will not be accepted</li>
+</ul>
+<p><em>Please note, we will not contact you to recompile documents if
+they are submitted in the wrong format. It is your responsibility to
+ensure you submit your work correctly. Failure to do so will result in a
+mark of 0 for that assignment.</em></p>
+</div>
+<div id="introduction" class="section level2">
+<h2>Introduction</h2>
+<p>This is a <em>formative</em> assignment, which will not count towards
+your final grade. Instead, you should use this assignment as an
+opportunity to practice completing a problem set with the style and
+formatting that we expect in MY472. The exercises below will guide you
+through this process. You will receive feedback on how well your
+assignment meets these guidelines.</p>
+<p>For clarity, the formatting requirements for each assignment are as
+follows:</p>
+<ul>
+<li><p>You must present all results in full sentences, as you would in a
+report or academic piece of writing</p>
+<ul>
+<li>If the exercise requires generating a table or figure, you should
+include at least one sentence introducing and explaining it. E.g. “The
+table below reports the counts of Wikipedia articles mentioning the LSE,
+by type of article.”</li>
+</ul></li>
+<li><p>Unless stated otherwise, all code used to answer the exercises
+should be included as a code appendix at the end of the script. This
+formatting can be achieved by following the guidance in the template.Rmd
+file (see Exercise 1).</p></li>
+<li><p>All code should be annotated with comments, to help the marker
+understand what you have done</p></li>
+<li><p>Your output should be replicable. Any result/table/figure that
+cannot be traced back to your code will not be marked</p></li>
+</ul>
+</div>
 <div id="exercise-1" class="section level2">
 <h2>Exercise 1</h2>
-<p>My forked version of the assignment template repository can be found
-at <a href="https://github.com/editor210/472_assignment_template" class="uri">https://github.com/editor210/472_assignment_template</a></p>
+<p>A template .Rmarkdown file can be found in this repository <a href="https://github.com/lse-my472/472_assignment_template">here</a>.</p>
+<p>Take a <em>fork</em> of the entire repository to use throughout the
+course. Set your forked version as public (if it is not public by
+default), and report the URL of your repository. The marker will check
+whether you have successfully forked the repository. For example:</p>
+<p>“My forked version of the assignment template repository can be found
+at www.github.com/tsrobinson/472_assignment_template”</p>
 </div>
 <div id="exercise-2" class="section level2">
 <h2>Exercise 2</h2>
-<p>For the second exercise I have chosen to work with the ChickWeight
-Dataset. This Dataset presents 578 rows and 4 variables (Weight, time,
-Chick, Diet).</p>
-<p>This dataset can be considered tidy since it fulfills the three rules
-for tidy data, that means: 1. Each Variable has its own column 2. Each
-observation has its own row 3. Each Value has its own cell</p>
-<p>The table below shows the first six rows of the ChickWeight dataset.
-Looking at this table it is possible to see that: 1. the variables
-“Weight”, “Time”, “Chick” and “Diet” are all contained in different
-columns 2. Each of the rows represent a unique weight given the chick,
-time, and diet 3. each value is separated in its own cell</p>
-<pre><code>##   weight Time Chick Diet
-## 1     42    0     1    1
-## 2     51    2     1    1
-## 3     59    4     1    1
-## 4     64    6     1    1
-## 5     76    8     1    1
-## 6     93   10     1    1</code></pre>
-<p>One alternative to untidy the table would be to pivot the time
-variable into columns, maintaining the weight of the Chick as value, as
-it is shown in the next table.</p>
-<pre><code>## # A tibble: 6 × 14
-##   Chick Diet    `0`   `2`   `4`   `6`   `8`  `10`  `12`  `14`  `16`  `18`  `20`
-##   &lt;ord&gt; &lt;fct&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;
-## 1 1     1        42    51    59    64    76    93   106   125   149   171   199
-## 2 2     1        40    49    58    72    84   103   122   138   162   187   209
-## 3 3     1        43    39    55    67    84    99   115   138   163   187   198
-## 4 4     1        42    49    56    67    74    87   102   108   136   154   160
-## 5 5     1        41    42    48    60    79   106   141   164   197   199   220
-## 6 6     1        41    49    59    74    97   124   141   148   155   160   160
-## # ℹ 1 more variable: `21` &lt;dbl&gt;</code></pre>
-<p>To get this new table it was necessary to transform the original
-dataset into a tibble and use pivot_wider to transform the time values
-into columns.</p>
-<p>Now the observations on the table show the weight of the Chick on a
-specific Time, but it is not clear what the observation is without prior
-explanation.</p>
-<p>In conclusion, this new table breaks the second rule of the tidy
-table because the “Time” and “Weight” variables are not allocated in
-separate columns</p>
+<p>R includes several built-in datasets, that can be found by calling
+<code>data()</code>. You can load a specific dataset into memory by
+calling <code>data(&quot;name_of_dataset&quot;)</code>.</p>
+<p>First, pick any of the built-in datasets and load it into R.</p>
+<p>Report whether your chosen dataset is “tidy” and explain why. You
+should evidence your claim by presenting the output of the
+<code>head()</code> function. This function shows the first few rows of
+the target object.</p>
+<p>If you believe your data is tidy, use R to create an untidy version
+in either wide or long format. If you believe your data is untidy,
+convert your data to a tidy format. Again, evidence your work by
+including the output from <code>head()</code> on your converted data
+frame. Finally, discuss briefly, in words, what you did and why your
+data is now tidy/untidy compared to the original dataset.</p>
 </div>
 <div id="exercise-3" class="section level2">
 <h2>Exercise 3</h2>
@@ -411,79 +433,22 @@ separate columns</p>
 memory.</p>
 <p>Your task is to transform this data frame and demonstrate the use of
 at least the following three components:</p>
-<p>A piping operator: either %&gt;% or |&gt;</p>
-<p>A call to the group_by() and summarise() functions</p>
-<p>A transformation of a numeric variable after having called
-summarise()</p>
-<pre class="r"><code>#Importing the data
-db &lt;- iris
-
-#checking the format of the data
-head(db)</code></pre>
-<pre><code>##   Sepal.Length Sepal.Width Petal.Length Petal.Width Species
-## 1          5.1         3.5          1.4         0.2  setosa
-## 2          4.9         3.0          1.4         0.2  setosa
-## 3          4.7         3.2          1.3         0.2  setosa
-## 4          4.6         3.1          1.5         0.2  setosa
-## 5          5.0         3.6          1.4         0.2  setosa
-## 6          5.4         3.9          1.7         0.4  setosa</code></pre>
-<pre class="r"><code>#Using pipe to get the maximum value of the Sepal.Length variable
-db %&gt;% select(Sepal.Length) %&gt;% max()</code></pre>
-<pre><code>## [1] 7.9</code></pre>
-<pre class="r"><code>#grouping the data by species and getting the average value of all variables
-db %&gt;% group_by(Species) %&gt;% summarise(Mean_Petal.Length = mean(Petal.Length), Mean_Petal.Width = mean(Petal.Width), Mean_Sepal.Length = mean(Sepal.Length), Mean_Sepal.Width = mean(Sepal.Width))</code></pre>
-<pre><code>## # A tibble: 3 × 5
-##   Species  Mean_Petal.Length Mean_Petal.Width Mean_Sepal.Length Mean_Sepal.Width
-##   &lt;fct&gt;                &lt;dbl&gt;            &lt;dbl&gt;             &lt;dbl&gt;            &lt;dbl&gt;
-## 1 setosa                1.46            0.246              5.01             3.43
-## 2 versico…              4.26            1.33               5.94             2.77
-## 3 virgini…              5.55            2.03               6.59             2.97</code></pre>
-<pre class="r"><code>#Transforming the numeric variable after checking the summarizes values by calculating the mean area of sepals and petals by species.
-db %&gt;% group_by(Species) %&gt;%
-  summarise(Mean_Petal.Length = mean(Petal.Length), Mean_Petal.Width = mean(Petal.Width), Mean_Sepal.Length = mean(Sepal.Length), Mean_Sepal.Width = mean(Sepal.Width)) %&gt;% 
-  group_by(Species) %&gt;%
-  summarise (&quot;Mean Petal Area&quot; = Mean_Petal.Width * Mean_Petal.Length, &quot;Mean Sepal Area&quot; = Mean_Sepal.Width * Mean_Sepal.Length)</code></pre>
-<pre><code>## # A tibble: 3 × 3
-##   Species    `Mean Petal Area` `Mean Sepal Area`
-##   &lt;fct&gt;                  &lt;dbl&gt;             &lt;dbl&gt;
-## 1 setosa                 0.360              17.2
-## 2 versicolor             5.65               16.4
-## 3 virginica             11.2                19.6</code></pre>
-</div>
-<div id="appendix-all-code-in-this-assignment" class="section level2">
-<h2>Appendix: All code in this assignment</h2>
-<pre class="r"><code>knitr::opts_chunk$set(echo = FALSE)
-#importing the tidyverse library
-library(tidyverse)
-#Checking the first six rows of the table
-head(ChickWeight)
-#linking the dataset to a variable
-db &lt;- ChickWeight
-
-#untidying the data by making it wider, linking the columns to the Times variable. The Values correpond to the weight values.
-untidy_data &lt;- pivot_wider(db, names_from = Time, values_from = weight)
-head(untidy_data)
-#Importing the data
-db &lt;- iris
-
-#checking the format of the data
-head(db)
-
-#Using pipe to get the maximum value of the Sepal.Length variable
-db %&gt;% select(Sepal.Length) %&gt;% max()
-
-#grouping the data by species and getting the average value of all variables
-db %&gt;% group_by(Species) %&gt;% summarise(Mean_Petal.Length = mean(Petal.Length), Mean_Petal.Width = mean(Petal.Width), Mean_Sepal.Length = mean(Sepal.Length), Mean_Sepal.Width = mean(Sepal.Width))
-
-#Transforming the numeric variable after checking the summarizes values by calculating the mean area of sepals and petals by species.
-db %&gt;% group_by(Species) %&gt;%
-  summarise(Mean_Petal.Length = mean(Petal.Length), Mean_Petal.Width = mean(Petal.Width), Mean_Sepal.Length = mean(Sepal.Length), Mean_Sepal.Width = mean(Sepal.Width)) %&gt;% 
-  group_by(Species) %&gt;%
-  summarise (&quot;Mean Petal Area&quot; = Mean_Petal.Width * Mean_Petal.Length, &quot;Mean Sepal Area&quot; = Mean_Sepal.Width * Mean_Sepal.Length)
-
-
-# this chunk generates the complete code appendix. 
-# eval=FALSE tells R not to run (``evaluate&#39;&#39;) the code here (it was already run before).</code></pre>
+<ul>
+<li>A piping operator: either <code>%&gt;%</code> or
+<code>|&gt;</code></li>
+<li>A call to the <code>group_by()</code> and <code>summarise()</code>
+functions</li>
+<li>A transformation of a numeric variable <em>after</em> having called
+<code>summarise()</code></li>
+</ul>
+<p>For this question you should report the code you use here (rather
+than only in the code appendix) by using <code>echo=TRUE</code> in this
+code chunk’s options. Each step should be annotated with a code comment
+that succinctly explains what you are doing. Evidence your work by
+including the output from <code>head()</code> on your transformed data.
+Finally, discuss some aspect of the transformed data that is informative
+<em>and</em> that would not have been evident from the original format
+of the data.</p>
 </div>
 
 
