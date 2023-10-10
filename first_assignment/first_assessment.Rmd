@@ -2,7 +2,9 @@
 title: 'Assignment #1 (formative)'
 author: "Edimilson Torres de Oliveira Neto"
 date: "2023-10-02"
-output: html_document
+output:
+  html_document: default
+  pdf_document: default
 ---
 
 ```{r setup, include=FALSE}
@@ -19,25 +21,26 @@ My forked version of the assignment template repository can be found at https://
 
 ## Exercise 2
 
-For the second exercise I have chosen to work with the ChickWeight Dataset.
-This Dataset presents 578 rows and 4 variables (Weight, time, Chick, Diet).
+For the second exercise I have chosen to work with the ChickWeight dataset.
+This dataset contains 578 rows and 4 variables (Weight, time, Chick, Diet).
 
-This dataset can be considered tidy since it fulfills the three rules for tidy data, that means:
+This dataset can be considered tidy since it adheres to the three rules for tidy data, that means:
 1. Each Variable has its own column
-2. Each observation has its own row
+2. Each observation has its own row 
 3. Each Value has its own cell
 
-The table below shows the first six rows of the ChickWeight dataset. Looking at this table it is possible to see that:
-1. the variables "Weight", "Time", "Chick" and "Diet" are all contained in different columns
-2. Each of the rows represent a unique weight given the chick, time, and diet
-3. each value is separated in its own cell
+The table below shows the first six rows of the ChickWeight dataset. Looking at this table it is evident that:
+
+1. the variables "Weight", "Time", "Chick" and "Diet" are all contained in different columns.
+2. Each of the rows represent a unique weight given the chick, time, and diet.
+3. each value is separated in its own cell.
 
 ```{r chicks, echo= FALSE}
 #Checking the first six rows of the table
 head(ChickWeight)
 ```
 
-One alternative to untidy the table would be to pivot the time variable into columns, maintaining the weight of the Chick as value, as it is shown in the next table.
+One alternative to untidy the table would be to pivot the time variable into columns, maintaining the weight of the Chick as a value, as it is shown in the next table.
 
 ```{r chicks_untidy, echo= FALSE}
 #linking the dataset to a variable
@@ -51,15 +54,15 @@ head(untidy_data)
 
 To get this new table it was necessary to transform the original dataset into a tibble and use pivot_wider to transform the time values into columns.
 
-Now the observations on the table show the weight of the Chick on a specific Time, but it is not clear what the observation is without prior explanation.
+Now the observations in the table show the weight of the Chick on a specific Time, but it is not clear what the observation is without prior explanation.
 
-In conclusion, this new table breaks the second rule of the tidy table because the "Time" and "Weight" variables are not allocated in separate columns
+In conclusion, this new table breaks the second rule of a tidy table because the "Time" and "Weight" variables are not allocated in separate columns
 
 
 ## Exercise 3
 
-The dataset that has been chosen for this exercise is the "Edgar Anderson's Iris Data". This data set gives the measurements in centimeters of sepal length and width and petal length and width for 50 flowers of 3 species.
-Choose a different built-in dataset within R and load it into memory.
+I chose the "Edgar Anderson's Iris Data" dataset for this exercise. This dataset gives the measurements in centimeters of sepal length and width and petal length and width for 50 flowers of 3 species.
+
 
 ```{r exercise_3, echo=TRUE}
 #Importing the data
@@ -68,14 +71,16 @@ db <- iris
 #checking the format of the data
 head(db)
 
-#Using pipe to get the maximum value of the Sepal.Length variable
+#Using the pipe operator to get the maximum value of the Sepal.Length variable
 db %>% select(Sepal.Length) %>% max()
 
 #grouping the data by species and getting the average value of all variables, by calling the group_by() and summarise() functions
 summarized_data <- db %>% group_by(Species) %>% summarise(Mean_Petal.Length = mean(Petal.Length), Mean_Petal.Width = mean(Petal.Width), Mean_Sepal.Length = mean(Sepal.Length), Mean_Sepal.Width = mean(Sepal.Width))
 print(summarized_data)
 
-#Transforming the numeric variable after having called the summarize functions by pipchecking the summarizes values by calculating the mean area of sepals and petals by species.
+#Considering the irregular shape of sepals and petals, for this exercise I will consider the area as if they were rectangular, but that might not be applicable in real studies.
+# Therefore, I use the summarized data to perform the transformation of the numeric variable by calculating the approximate mean area of sepals and petals by species.
+
 transformed_data <- summarized_data %>% 
   group_by(Species) %>%
   summarise ("Mean Petal Area (cm²)" = Mean_Petal.Width * Mean_Petal.Length, "Mean Sepal Area(cm²)" = Mean_Sepal.Width * Mean_Sepal.Length)
@@ -85,11 +90,7 @@ head(transformed_data)
 
 ```
 
-Finally, discuss some aspect of the transformed data that is informative and that would not have been evident from the original format of the data.
-
-After having made the above mentioned transformations in the dataset it is possible to see that the setosa species presents Petals that are more than 15 times larger than the ones from the setosa flowers. However, when you check the Sepal area, the setosa actually has, on average, a bigger Sepal than the versicolor species.
-
-The virginica species is also clearly the biggest flower measured in this dataset.
+After having made the above-mentioned transformations in the dataset, it is possible to  get some information that was not explicit in the initial dataset. For instance, the Setosa species presents Petals that are more than 15 times larger than the ones from the Versicolor flowers. However, when you check the sepal area, the setosa actually has, on average, a bigger Sepal than the versicolor species. The virginica species is also clearly the biggest flower measured in this dataset on average.
 
 ## Appendix: All code in this assignment
 
